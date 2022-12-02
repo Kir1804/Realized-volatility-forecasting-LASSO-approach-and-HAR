@@ -1,0 +1,194 @@
+\documentclass[11pt]{beamer} % Определяем тип документа как презентацию
+% в квадратных скобках размер шрифта: 8pt, 9, 10, 11 (def), 12, 14, 17, 20.
+
+\input{preamble} 
+% В преамбуле можно сделать небольшие изменения (цвет, шрифт итд.) Если есть желание изменить больше, возможно, проще выбрать другой шаблон.
+
+% Начнем работу с презентацией
+
+%Для начала подготовим титульный лист и оглавление
+\input{title}
+
+
+
+\begin{document} % начнем саму презентацию
+
+\frame{\titlepage} % сделаем титульный слайд и оглавление:
+
+\begin{frame}
+    \frametitle{Оглавление}
+    \tableofcontents
+\end{frame}
+
+
+
+% Далее начнем работу со слайдами:
+
+\section{Введение}
+    \begin{frame}{Введение}
+        \item 
+    \begin{itemize}
+        \item Проект основан на исследовании 2021 года [Ding et al, 2021], где авторы использовали различные модели для предсказания реализованной волатильности \\
+        \item Изначальное исследование рассматривало 5-ти минутные показатели индексов нескольких стран
+        \end{itemize}
+    \end{frame}
+
+\section{Содержание}
+    \begin{frame}{Введение в RV}
+        \centering
+	% {\large На этом слайде все пункты появляются одновременно}
+
+        \begin{itemize}
+            \item В качестве оценки
+волатильности и качества прогнозной силы в литературе и на практике широко используется «реализованная волатильность», которая получила широкое применение с появлением высокочастотных внутридневных данных котировок цен.
+
+            \item RV_t = \sum\limits_{i=1}^n(r_t,_i)^2
+
+            
+
+            % \item r_t,_j = log(p_t,_i) - log(p_t_i_+_1 ) 
+
+        \end{itemize}
+
+        % {\large На самом деле можно делать и перечисление вместо списка}
+        % \begin{enumerate}
+        %     \item Первый
+
+        %     \item Второй
+
+        %     \item Третий
+        % \end{enumerate}
+    \end{frame}
+    \begin{frame}{Содержание 2}
+        \frametitle{Данные}
+            \centering
+            % {\large На этом слайде уже идут визуальные эффекты}
+            % \smallbreak
+
+        \begin{itemize}
+            \item Данные из статьи достать не представляется возможным на текущий момент
+            \item Использовались пятиминутные данные по биткоину с 06/11/2018 - 03/11/2022
+            % \item<3> Этот пункт видно только на третий раз
+            % \item<4-> Вот, третий пункт уже отсутствует
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{HAR-модель}
+        \begin{itemize}
+        \item Семейство HAR-RV моделей (The Heterogeneous Autoregressive model of the Realized Volatility) основывается на гипотезе о гетерогенности рынка
+        \item Еще одной особенностью HAR-RV модели является рассмотрение волатильности как ненаблюдаемой
+величины, для которой существует наблюдаемая оценка, которую можно оценить при помощи высокочастотных данных. Эта оценка называется реализованной волатильностью
+и обозначается RV
+        \item Формально является линейной регрессией, где регрессорами выступают недельная и месячная реализованная волатильности
+        % \item RV_t = beta_0 + beta_d*RV_t_-_1 + beta_w*RV_t_-_1_:_t_-_5 + beta_m*RV_t_-_1_:_t_-_2_2 + u_t
+\end{itemize}
+        % Здесь уже пример \pause
+        % как делать этот эффект, \pause
+        
+        % если просто хочешь текст, без itemize
+    \end{frame}
+    \begin{frame}{Базовый вид, который реализован}
+        \begin{itemize}
+            \item RV_t = \beta_0 + \beta_d*RV_t_-_1 + \beta_w*RV_t_-_1_:_t_-_5 + \beta_m*RV_t_-_1_:_t_-_2_2 + u_t
+        \end{itemize}
+        % Можно \alert{выделить} красным важное слово.
+
+        % \begin{block}{Ремарка}
+        %     Есть такая вставка
+        % \end{block}
+
+        % \begin{alertblock}{Note Bene!}
+        %     Есть <<важная>> вставка
+        % \end{alertblock}
+
+        % \begin{examples}
+        %     Этим блокам тоже можно поменять цвета/шрифт в преамбулу
+        % \end{examples}
+
+        % \begin{problem}
+            % Здесь можно задачку записать
+        % \end{problem}
+        % На самом деле есть еще theorem, definition, proof, collorary, example.
+    \end{frame}
+    \begin{frame}{Ход работы}
+        \begin{itemize}
+            \item Обработка данных
+            \item Расчет дневной, недельной и месячной реализованной волатильности
+            \item Логарифмирование
+            \item Тест на стационарность
+            \item Приведение к стационарности методом первых разностей
+            \item Разбиение на train и test
+            \item Подбор коэффициентов методом OLS
+            \item Значимыми остались являются только дневные и месячные логарифмы реализованной волатильности
+        \end{itemize}
+        % $$i_t = r^* + \pi^d + \left(1+\frac{\lambda}{\phi(\lambda^2+\alpha)}\right)(\pi^e - \pi^d) + \frac{\lambda}{\phi(\lambda^2+\alpha)} u_t + \frac{1}{\phi}(g_t-y_t^*)$$
+        % \begin{columns}
+        %     \column{0.05\textwidth}
+        %     \column{0.45\textwidth}
+        %     Это первая колонка
+        %     \begin{itemize}
+        %         \item Еще что-то
+        %         \item И Ещё
+        %     \end{itemize}
+
+        %     \column{0.5\textwidth}
+        %     А вот это вторая колонка.\\
+        %     Она как-то хитро алайнится
+        % \end{columns}
+    \end{frame}
+    % \begin{frame}{Картинка}
+    %     \centering
+    %     \includegraphics[scale=0.2]{lion}
+    %     % Все о картинках можно узнать тут https://ru.overleaf.com/learn/latex/Inserting_Images
+    %     % В том числе как сочетать их с текстом
+    % \end{frame}
+    \begin{frame}{Промежуточные результаты и метрики}
+        \begin{table}[h!]
+            \centering
+            \begin{tabular}{| l | c | r |}
+                \hline
+                Метрики & Значения & Пояснения \\
+                \hline
+                MSE in-sample  & 0.0075 & Ср квадрат ошибки \\
+                R-squared in-sample & 0.5865  & Высокий пок-ль \\ [1ex]
+                MAE in-sample & 0.0644 & Ср абсолютная ошибка \\
+                MSE out-of-sample & 0.0065 & Ср квадрат ошибки\\
+                R-squared out-of-sample & 0.4123 & Выоский пок-ль \\
+                MAE out-of-sample & 0.0644 & Ср абсолютная ошибка\\
+                \hline
+            \end{tabular}
+        \end{table}
+        % Больше про таблицы на https://www.overleaf.com/learn/latex/Tables
+    \end{frame}
+    \begin{frame}{Дальнейший план}
+        \begin{itemize}
+            \item Построить другие спецификации: HAR-free, LASSO
+            \item Применить методику к высокочастотному VIX (проблема с получением данных)
+            \item Сфокусироваться на стратегии имлементации RV для менеджмента позиций. Например, торговать волатильностью с помощью VIX (в процессе обсуждения)
+        \end{itemize}
+        % Много чего интересного можно прочитать в книгах по использованию Латеха. Например, у Дирака \cite{dirac}. Также есть интересные статьи, например, у Эйнштейна \cite{einstein}. На еще можно посмотреть сайт \cite{knuthwebsite}, и отрывок из книги \cite{knuth-fa}.\\
+        % Также можно попробовать самому \href{http://www.overleaf.com}{тут}  или по ссылке: \url{http://www.overleaf.com}
+        % % https://www.overleaf.com/learn/latex/Hyperlinks --- ссылки
+    \end{frame}
+
+\section{Заключение}
+    \begin{frame}{Заключение}
+        \begin{itemize}
+            \item Подробно рассмотрена одна спецификация
+            \item В ближайшее время рассмотреть еще несколько
+            \item Реализовать на VIX
+        \end{itemize}
+        % \centering
+        % {\LARGE Надеюсь, этот шаблон будет вам полезен.}\\
+        % {\tiny Вы также копировать отдельные элементы (преамбулу, шаблон таблицы, итд) и вставлять их через input.}
+    \end{frame}
+
+% \section{Источники}
+%     \begin{frame}{Источники}
+%         \printbibliography
+%     \end{frame}
+
+% \section*{}  
+%     \begin{frame}
+%         \textcolor{darkblueNES}{\Huge{\centerline{Спасибо за внимание!}}}
+%     \end{frame}
+\end{document}

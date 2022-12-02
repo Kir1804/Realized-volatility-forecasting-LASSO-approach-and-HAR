@@ -1,0 +1,113 @@
+% Общее:
+\usetheme{CambridgeUS} % колонтитулы, углы, и другая красота
+% Другие темы можно найти на https://latex-beamer.com/tutorials/beamer-themes/
+\usecolortheme{seahorse} % но по факту мы почти все цвета сами задаем
+% https://deic.uab.cat/~iblanes/beamer_gallery/index_by_color.html
+\usefonttheme{professionalfonts}
+
+\usepackage {mathtools} % красивая математика
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % еще математика
+
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=nty
+]{biblatex} % для библиографии
+\addbibresource{references.bib}
+\usepackage{hyperref} % для ссылок
+
+
+
+% Создаем цвета
+\definecolor{darkredNES}{RGB}{115,15,15} % тёмно-красный
+\definecolor{darkblueNES}{RGB}{20,20,100} % тёмно-синий
+\definecolor{redNES}{RGB}{170,35,35} % красный посветлее
+\definecolor{darkgreenNES}{RGB}{7,110,7} % тёмно-зеленый
+\definecolor{alertredNES}{RGB}{125,25,25} % красный средний
+% Однако в основном проще пользоваться стандартными цветами, подробнее тут:
+% https://www.overleaf.com/learn/latex/Using_colours_in_LaTeX
+
+\setbeamercolor*{palette primary}{bg=darkredNES} %правые рамки
+\setbeamercolor*{palette secondary}{bg=darkredNES, fg = white} %центральные
+\setbeamercolor*{palette tertiary}{bg=darkredNES, fg = white} %левые
+
+\setbeamercolor*{titlelike}{fg=darkredNES} % названия слайдов
+\setbeamercolor*{title}{bg=darkredNES, fg = white} % титул и отделы
+\setbeamercolor*{item}{fg=redNES} % для списков (например, в оглавлении)
+\setbeamercolor*{caption name}{fg=darkblueNES} % названия картинок
+\setbeamercolor{alerted text}{fg=alertredNES} % выделенка
+
+\setbeamertemplate{blocks}[rounded, shadow=true]
+\setbeamercolor{block title}{bg=darkblueNES, fg=white}
+\setbeamercolor{block title alerted}{bg=alertredNES, fg=white}
+\setbeamercolor{block title example}{bg=darkgreenNES, fg=white}
+
+\setbeamercolor{bibliography entry author}{fg=black}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=darkblueNES}
+
+\setbeamercolor{page number in head/foot}{fg=white}
+
+
+
+
+% Для русского нам пригодится
+\usepackage[english,russian]{babel} % локализация и переносы
+\usepackage{fontspec}
+\usepackage[T2A]{fontenc} % кодировка
+\usepackage[utf8]{inputenc} % кодировка исходного текста
+\usepackage{cmap} % поиск в PDF
+\usepackage{mathtext} % русские буквы в формулах
+
+
+
+% Шрифты
+\setsansfont{Times New Roman} % Настройка Шрифта
+% \setsansfont{Noto Sans} этот можете использовать, если вам не нравятся засечки на буквах
+% \setmainfont{Arial} % Дополнительно
+% \setmonofont{Arial} % Нужно Разобраться за что они отвечают
+% Другие шрифты можно поскачивать на https://www.ctan.org/tex-archive/fonts
+
+
+
+% Работа с картинками
+\usepackage{graphicx} % Для вставки рисунков
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков текстом
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.HEIC} % работа с форматами
+% \graphicspath{{images/}} % папки с картинками, в оверлифе это не нужно
+% Ещё о картинках https://www.overleaf.com/learn/latex/Inserting_Images
+
+
+
+% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительное для таблиц
+\usepackage{longtable} % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+
+
+
+% Свои команды, если лень прописывать \mathbb итп.
+\def\E{\exists} % существует
+\def\A{\forall} % для всех
+
+\def\La{\mathcal{L}} % калиграфическое L (Лагранжиан, преобразования Лапласа)
+\def\la{\lambda} % лямбда
+\def\a{\alpha} % альфа
+\def\b{\beta} % бэта
+\def\e{\varepsilon} % эпсилон (покрасивее)
+\let\phi\varphi % фи (покрасивее)
+
+\def\N{\mathbb{N}} % натуральные
+\def\Z{\ensuremath{\mathbb{Z}}} % целые
+\def\R{\mathbb{R}} % рациональные
+\def\C{\mathbb{C}} % комплексные
+
+\def\~{\sim} % подобно
+
+
+
+%Возможно, у вас возникнут проблемы с буквой @, попробуйте одно из следующих:
+%\makealetter
+%\makeatother

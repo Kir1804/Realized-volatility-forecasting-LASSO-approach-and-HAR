@@ -1,0 +1,40 @@
+%Логотип РЭШ
+\titlegraphic{\includegraphics[height=1.5cm]{}}
+
+%Размеры шрифтов титульного листа; Цвета определены в преамбуле
+\setbeamerfont{title}{size=\huge}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{date}{size=\normalsize}
+\setbeamerfont{institute}{size=\normalsize}
+% Больше о шрифтах вы найдете в том числе по следующей ссылке:
+% https://tex.stackexchange.com/questions/183052/what-are-all-the-possible-first-arguments-to-setbeamerfont
+
+%Тут квадратные скобки --- всё, что будет внизу странички
+\title[ЦМФ]{RV и ее применение в инвестиционных стратегиях}
+\subtitle{Проект}
+\author[Кирилл Дорцев]{Кирилл Дорцев}
+\institute[]{Центр Математических Финансов}
+\date[\textcolor{white}{\today}]{\today}
+
+
+
+% Следующее пригодится, если нужно показывать начало секции с оглавлением
+%\AtBeginSection[]
+%{
+%  \begin{frame}
+%    \frametitle{Contents}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
